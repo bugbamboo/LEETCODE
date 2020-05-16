@@ -1,0 +1,40 @@
+class Solution {
+    static int rowpos=0;
+    static int colpos=0;
+    public List<Integer> spiralOrder(int[][] matrix) {
+        if(Arrays.deepEquals(matrix,new int[0][0])){
+            return new ArrayList<Integer>();
+        }
+        rowpos=0;
+        colpos=0;
+        boolean[][] seen = new boolean[matrix.length][matrix[0].length];
+        List<Integer> spiral = new ArrayList<Integer>();
+        int posx=0;
+        int posy=0;
+        
+        int[] rows =new int[]{0,1,0,-1};
+        int[] columns = new int[]{1,0,-1,0};
+        while(spiral.size()<(matrix.length*matrix[0].length)){
+        
+            spiral.add(matrix[posx][posy]);
+            seen[posx][posy]=true;
+            if(posx+rows[rowpos]>=matrix.length||posy+columns[colpos]>=matrix[0].length||posy+columns[colpos]<0||posx+rows[rowpos]<0||seen[posx+rows[rowpos]][posy+columns[colpos]]){
+               iterate(); 
+                posx+=rows[rowpos];
+                posy+=columns[colpos];
+            }else{
+                posx+=rows[rowpos];
+                posy+=columns[colpos];
+            }
+        }
+        return spiral;
+    }
+    public static void iterate(){
+        rowpos++;
+        colpos++;
+        if(rowpos>=4){
+            rowpos=0;
+            colpos=0;
+        }
+    } 
+}
