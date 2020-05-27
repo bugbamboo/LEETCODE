@@ -1,0 +1,27 @@
+class Solution {
+    public int shortestSubarray(int[] A, int K) {
+        HashSet<Integer> lengths = new HashSet<Integer>();
+        List<Integer> temp = new ArrayList<Integer>();
+        for(int i=0; i<A.length; i++){
+            int sum =0;
+            int j=i+1;
+            temp = new ArrayList<Integer>();
+            temp.add(A[i]);
+            sum+=A[i];
+            
+            while(sum<K&&j<A.length){
+                temp.add(A[j]);
+                sum+=A[j];
+                j++;
+            }
+            if(sum>=K){
+            lengths.add(temp.size());
+            }
+        }
+        if(lengths.isEmpty()){
+            return -1;
+        }
+        return Collections.min(lengths);
+    }
+    
+}
