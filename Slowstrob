@@ -1,0 +1,55 @@
+import java.math.*;
+class Solution {
+    public int strobogrammaticInRange(String low, String high) {
+        BigInteger l = new BigInteger(low);
+        BigInteger r = new BigInteger(high);
+        if(l.compareTo(r)>0){
+            return 0;
+        }
+        int count =0;
+        String current = low;
+        while(!current.equals(iterate(high))){
+            if(current.equals(flip(current))){
+                count++;
+                System.out.println(current);
+            }
+            
+            current = iterate(current);
+            
+        }
+        return count;
+    }
+    public String iterate(String s){
+        StringBuilder d = new StringBuilder(s);
+        for(int i=s.length()-1;i>-1;i--){
+            int x = Integer.parseInt(s.charAt(i)+"");
+            if(x!=9){
+                x++;
+                d.setCharAt(i,(char)(x+'0'));
+                break;
+            }else{
+                d.setCharAt(i,'0');
+                    if(i==0){
+                        d.insert(0,'1');
+                    }
+            }
+        }
+        return d.toString();
+    }
+    public String flip(String d){
+        StringBuilder s = new StringBuilder(d);
+        for(int i=0; i<s.length();i++){
+            if(s.charAt(i)!='1'&&s.charAt(i)!='8'&&s.charAt(i)!='6'&&s.charAt(i)!='9'&&s.charAt(i)!='0'){
+                return "no thanks";
+            }else{
+                if(s.charAt(i)=='6'){
+                    s.setCharAt(i,'9');
+                }else if(s.charAt(i)=='9'){
+                    s.setCharAt(i,'6');
+                }
+            }
+        }
+        return s.reverse().toString();
+        
+    }
+}
